@@ -12,7 +12,7 @@ jobs:
     name: Unit Testing
     runs-on: ubuntu-latest
     env:
-      MONGO_URI: "mongodb+srv://supercluster.d3jj.mongodb.net/superData"
+      MONGO_URI: 'mongodb+srv://supercluster.d3jj.mongodb.net/superData'
       MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
       MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     steps:
