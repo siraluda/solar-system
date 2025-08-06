@@ -51,7 +51,7 @@ jobs:
         if: steps.check_artifact.outputs.already_uploaded == 'false'
         uses: actions/upload-artifact@v4
         with:
-          name: Mocha-Test-Result-${{ github.run_id }}-${{ github.job }}
+          name: Mocha-Test-Result
           path: test-results.xml
 
       - name: Set marker file
