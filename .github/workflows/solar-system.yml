@@ -38,22 +38,8 @@ jobs:
       - name: Run Unit Tests
         run: npm test
 
-      - name: Check for artifact marker
-        id: check_artifact
-        run: |
-          if [ -f artifact_uploaded.flag ]; then
-              echo "already_uploaded=true" >> $GITHUB_OUTPUT
-          else
-              echo "already_uploaded=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Archive Test Results
-        if: steps.check_artifact.outputs.already_uploaded == 'false'
         uses: actions/upload-artifact@v4
         with:
-          name: Mocha-Test-Result
+          name: Mocha-Test-Result-${{ github.run_id }}-${{ github.job }}
           path: test-results.xml
-
-      - name: Set marker file
-        if: steps.check_artifact.outputs.already_uploaded == 'false'
-        run: touch artifact_uploaded.flag
