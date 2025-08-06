@@ -53,3 +53,7 @@ jobs:
         with:
           name: Mocha-Test-Result-${{ github.run_id }}-${{ github.job }}
           path: test-results.xml
+
+      - name: Set marker file
+        if: steps.check_artifact.outputs.already_uploaded == 'false'
+        run: touch artifact_uploaded.flag
