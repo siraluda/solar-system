@@ -10,6 +10,11 @@ on:
 jobs:
   unit-testing:
     name: Unit Testing
+    services:
+      mongo-db:
+        image: siddharth67/mongo-db:non-prod
+        ports:
+          - 27017:27017
     strategy:
       matrix:
         nodejs_version: [18, 19, 20]
@@ -19,9 +24,9 @@ jobs:
             operating_system: macos-latest
     runs-on: ${{ matrix.operating_system }}
     env:
-      MONGO_URI: "mongodb+srv://supercluster.d83jj.mongodb.net/superData"
-      MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
-      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+      MONGO_URI: 'mongodb://localhost:27017/superData'
+      MONGO_USERNAME: non-prod-user
+      MONGO_PASSWORD: non-prod-password
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
