@@ -38,12 +38,12 @@ jobs:
       - name: Run Unit Tests
         run: npm test
 
-      # - name: Archive Test Results
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Mocha-Test-Result-${{ matrix.nodejs_version }}-${{ matrix.operating_system }}
-      #     path: test-results.xml
-      #     retention-days: 1
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mocha-Test-Result-${{ matrix.nodejs_version }}-${{ matrix.operating_system }}
+          path: test-results.xml
+          retention-days: 1
 
   code-coverage:
     name: Code coverage
@@ -69,19 +69,6 @@ jobs:
       - name: Generate Coverage Report
         continue-on-error: true
         run: npm run coverage
-
-      - name: Check if Coverage Artifact Already Exists
-        id: check_artifact
-        run: |
-          ARTIFACT_NAME="Code-Coverage-Result"
-          ARTIFACTS=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts --jq '.artifacts[].name')
-          if echo "$ARTIFACTS" | grep -q "$ARTIFACT_NAME"; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Archive Coverage Report
         uses: actions/upload-artifact@v4
