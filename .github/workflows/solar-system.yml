@@ -172,7 +172,7 @@ jobs:
       - name: Install kubectl CLI
         uses: azure/setup-kubectl@v4
         with:
-          version: 'v1.26'
+          version: 'v1.30.0'
 
       - name: Configure Kubeconfig
         run: |
